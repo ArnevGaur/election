@@ -6,14 +6,14 @@ export default function Footer() {
   const { t } = useApp();
 
   return (
-    <footer className="relative mt-auto">
-      <div className="section-divider" />
-      <div className="max-w-[1200px] mx-auto px-5 py-16">
+    <footer className="mt-auto">
+      <div className="h-px" style={{ background: 'linear-gradient(90deg, transparent 0%, var(--color-border-hover) 50%, transparent 100%)' }} />
+      <div className="max-w-[980px] mx-auto px-6 py-14">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-10">
           <div>
-            <div className="flex items-center gap-2.5 mb-4">
-              <div className="w-7 h-7 rounded-lg flex items-center justify-center text-white text-[10px] font-extrabold" style={{ background: 'var(--grad-primary)' }}>E</div>
-              <span className="font-bold text-[15px] gradient-text">Election Guide</span>
+            <div className="flex items-center gap-2 mb-3">
+              <div className="w-5 h-5 rounded-[5px] flex items-center justify-center text-[9px] font-extrabold" style={{ background: 'var(--color-accent)', color: '#0c0c0e' }}>E</div>
+              <span className="font-semibold text-[13px]" style={{ color: 'var(--color-text-primary)' }}>Election Guide</span>
             </div>
             <p className="text-[13px] leading-relaxed max-w-xs" style={{ color: 'var(--color-text-tertiary)' }}>
               {t({ en: 'Making democracy accessible through education.', hi: 'शिक्षा के माध्यम से लोकतंत्र को सुलभ बनाना।' })}
@@ -21,10 +21,10 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-[12px] font-bold uppercase tracking-widest mb-4" style={{ color: 'var(--color-text-secondary)' }}>
+            <h4 className="text-[11px] font-semibold uppercase tracking-widest mb-4" style={{ color: 'var(--color-text-tertiary)' }}>
               {t({ en: 'Navigate', hi: 'नेविगेट करें' })}
             </h4>
-            <div className="space-y-2.5">
+            <div className="space-y-2">
               {[
                 { href: '/journey', label: { en: 'Election Journey', hi: 'चुनाव यात्रा' } },
                 { href: '/timeline', label: { en: 'Timeline', hi: 'टाइमलाइन' } },
@@ -34,9 +34,9 @@ export default function Footer() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="block text-[13px] transition-colors"
+                  className="block text-[13px] transition-colors duration-200"
                   style={{ color: 'var(--color-text-tertiary)' }}
-                  onMouseEnter={e => e.target.style.color = '#c084fc'}
+                  onMouseEnter={e => e.target.style.color = 'var(--color-text-primary)'}
                   onMouseLeave={e => e.target.style.color = 'var(--color-text-tertiary)'}
                 >
                   {t(link.label)}
@@ -46,13 +46,13 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-[12px] font-bold uppercase tracking-widest mb-4" style={{ color: 'var(--color-text-secondary)' }}>
-              {t({ en: 'Official Resources', hi: 'आधिकारिक संसाधन' })}
+            <h4 className="text-[11px] font-semibold uppercase tracking-widest mb-4" style={{ color: 'var(--color-text-tertiary)' }}>
+              {t({ en: 'Resources', hi: 'संसाधन' })}
             </h4>
-            <div className="space-y-2.5">
+            <div className="space-y-2">
               {[
                 { href: 'https://eci.gov.in', label: 'Election Commission' },
-                { href: 'https://nvsp.in', label: 'Voter Registration (NVSP)' },
+                { href: 'https://nvsp.in', label: 'Voter Registration' },
                 { href: 'https://voters.eci.gov.in', label: 'Voter Helpline' },
               ].map(link => (
                 <a
@@ -60,9 +60,9 @@ export default function Footer() {
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block text-[13px] transition-colors"
+                  className="block text-[13px] transition-colors duration-200"
                   style={{ color: 'var(--color-text-tertiary)' }}
-                  onMouseEnter={e => e.target.style.color = '#c084fc'}
+                  onMouseEnter={e => e.target.style.color = 'var(--color-text-primary)'}
                   onMouseLeave={e => e.target.style.color = 'var(--color-text-tertiary)'}
                 >
                   {link.label} ↗
@@ -72,8 +72,8 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-6 text-center" style={{ borderTop: '1px solid var(--color-border)' }}>
-          <p className="text-[12px]" style={{ color: 'var(--color-text-tertiary)' }}>
+        <div className="mt-10 pt-5 text-center" style={{ borderTop: '1px solid var(--color-border)' }}>
+          <p className="text-[11px]" style={{ color: 'var(--color-text-tertiary)' }}>
             {t({ en: 'Educational project · Not affiliated with any political party', hi: 'शैक्षिक परियोजना · किसी राजनीतिक दल से संबद्ध नहीं' })}
           </p>
         </div>

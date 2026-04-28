@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sun, Moon, Languages, Menu, X, Accessibility } from 'lucide-react';
+import { Sun, Moon, Menu, X, Accessibility } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
 import Toggle from '@/components/ui/Toggle';
 
@@ -21,49 +21,42 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [accessOpen, setAccessOpen] = useState(false);
 
-  if (!mounted) return <nav className="h-16" />;
+  if (!mounted) return <nav className="h-14" />;
 
   return (
     <nav className="glass-nav sticky top-0 z-40">
-      <div className="max-w-[1200px] mx-auto px-5">
-        <div className="flex items-center justify-between h-16">
+      <div className="max-w-[980px] mx-auto px-6">
+        <div className="flex items-center justify-between h-14">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 group">
+          <Link href="/" className="flex items-center gap-2 group">
             <div
-              className="w-8 h-8 rounded-xl flex items-center justify-center text-white text-[11px] font-extrabold"
-              style={{ background: 'var(--grad-primary)' }}
+              className="w-6 h-6 rounded-md flex items-center justify-center text-[10px] font-extrabold"
+              style={{ background: 'var(--color-accent)', color: '#0c0c0e' }}
             >
               E
             </div>
-            <span className="font-bold text-[15px] gradient-text">
+            <span className="font-semibold text-[14px]" style={{ color: 'var(--color-text-primary)' }}>
               Election Guide
             </span>
           </Link>
 
           {/* Desktop Links */}
-          <div className="hidden md:flex items-center gap-1">
+          <div className="hidden md:flex items-center gap-0.5">
             {navLinks.map(link => {
               const active = pathname === link.href;
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="relative px-3.5 py-2 text-[13px] font-semibold rounded-lg transition-all duration-200"
+                  className="px-3 py-1.5 text-[13px] font-medium rounded-lg transition-colors duration-200"
                   style={{
-                    color: active ? '#c084fc' : 'var(--color-text-secondary)',
-                    background: active ? 'rgba(168,85,247,0.1)' : 'transparent',
+                    color: active ? 'var(--color-text-primary)' : 'var(--color-text-tertiary)',
                   }}
                   onMouseEnter={e => {
-                    if (!active) {
-                      e.target.style.color = 'var(--color-text-primary)';
-                      e.target.style.background = 'rgba(255,255,255,0.04)';
-                    }
+                    if (!active) e.target.style.color = 'var(--color-text-secondary)';
                   }}
                   onMouseLeave={e => {
-                    if (!active) {
-                      e.target.style.color = 'var(--color-text-secondary)';
-                      e.target.style.background = 'transparent';
-                    }
+                    if (!active) e.target.style.color = 'var(--color-text-tertiary)';
                   }}
                 >
                   {t(link.label)}
@@ -73,39 +66,37 @@ export default function Navbar() {
           </div>
 
           {/* Controls */}
-          <div className="flex items-center gap-1.5">
-            {/* Progress */}
+          <div className="flex items-center gap-1">
             {progressPercent > 0 && (
-              <div className="hidden sm:flex items-center gap-2 mr-3 px-3 py-1.5 rounded-lg" style={{ background: 'rgba(168,85,247,0.1)', border: '1px solid rgba(168,85,247,0.15)' }}>
-                <div className="w-16 h-1.5 rounded-full overflow-hidden" style={{ background: 'rgba(168,85,247,0.2)' }}>
+              <div className="hidden sm:flex items-center gap-2 mr-2 px-2.5 py-1 rounded-md" style={{ background: 'var(--color-accent-subtle)' }}>
+                <div className="w-12 h-1 rounded-full overflow-hidden" style={{ background: 'var(--color-accent-muted)' }}>
                   <motion.div
                     className="h-full rounded-full"
-                    style={{ background: 'var(--grad-primary)' }}
+                    style={{ background: 'var(--color-accent)' }}
                     initial={{ width: 0 }}
                     animate={{ width: `${progressPercent}%` }}
                   />
                 </div>
-                <span className="text-[11px] font-bold" style={{ color: '#c084fc' }}>{progressPercent}%</span>
+                <span className="text-[10px] font-semibold" style={{ color: 'var(--color-accent-text)' }}>{progressPercent}%</span>
               </div>
             )}
 
-            <NavButton onClick={toggleLanguage} label="Language">
-              <span className="text-[11px] font-bold" style={{ color: 'var(--color-text-secondary)' }}>{language === 'en' ? 'हि' : 'EN'}</span>
-            </NavButton>
+            <NavBtn onClick={toggleLanguage}>
+              <span className="text-[11px] font-semibold" style={{ color: 'var(--color-text-tertiary)' }}>{language === 'en' ? 'हि' : 'EN'}</span>
+            </NavBtn>
 
             <div className="relative">
-              <NavButton onClick={() => setAccessOpen(!accessOpen)} label="Accessibility">
-                <Accessibility size={15} style={{ color: 'var(--color-text-secondary)' }} />
-              </NavButton>
+              <NavBtn onClick={() => setAccessOpen(!accessOpen)}>
+                <Accessibility size={14} style={{ color: 'var(--color-text-tertiary)' }} />
+              </NavBtn>
               <AnimatePresence>
                 {accessOpen && (
                   <motion.div
-                    initial={{ opacity: 0, y: 4, scale: 0.97 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 4, scale: 0.97 }}
-                    transition={{ duration: 0.15 }}
-                    className="absolute right-0 mt-2 w-56 rounded-xl p-4 space-y-3 z-50 glass-card"
-                    style={{ boxShadow: 'var(--shadow-lg)' }}
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 4 }}
+                    transition={{ duration: 0.12 }}
+                    className="absolute right-0 mt-2 w-52 rounded-xl p-3.5 space-y-3 z-50 surface-raised"
                   >
                     <Toggle enabled={simpleMode} onChange={setSimpleMode} label={t({ en: 'Simple Mode', hi: 'सरल मोड' })} size="sm" />
                     <Toggle enabled={highContrast} onChange={setHighContrast} label={t({ en: 'High Contrast', hi: 'हाई कंट्रास्ट' })} size="sm" />
@@ -114,31 +105,29 @@ export default function Navbar() {
               </AnimatePresence>
             </div>
 
-            <NavButton onClick={toggleTheme} label="Theme">
-              <motion.div key={theme} initial={{ rotate: -30, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} transition={{ duration: 0.15 }}>
+            <NavBtn onClick={toggleTheme}>
+              <motion.div key={theme} initial={{ rotate: -20, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} transition={{ duration: 0.12 }}>
                 {theme === 'dark'
-                  ? <Sun size={15} style={{ color: '#fbbf24' }} />
-                  : <Moon size={15} style={{ color: 'var(--color-text-secondary)' }} />
+                  ? <Sun size={14} style={{ color: 'var(--color-accent)' }} />
+                  : <Moon size={14} style={{ color: 'var(--color-text-tertiary)' }} />
                 }
               </motion.div>
-            </NavButton>
+            </NavBtn>
 
-            {/* Mobile toggle */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="md:hidden w-9 h-9 rounded-lg flex items-center justify-center cursor-pointer border-none"
+              className="md:hidden w-8 h-8 rounded-md flex items-center justify-center cursor-pointer border-none"
               style={{ background: 'transparent' }}
               aria-label="Menu"
             >
               {mobileOpen
-                ? <X size={18} style={{ color: 'var(--color-text-primary)' }} />
-                : <Menu size={18} style={{ color: 'var(--color-text-primary)' }} />}
+                ? <X size={16} style={{ color: 'var(--color-text-primary)' }} />
+                : <Menu size={16} style={{ color: 'var(--color-text-primary)' }} />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -146,19 +135,17 @@ export default function Navbar() {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden overflow-hidden glass-card"
+            className="md:hidden overflow-hidden"
+            style={{ borderTop: '1px solid var(--color-border)', background: 'var(--color-bg-secondary)' }}
           >
-            <div className="px-5 py-3 space-y-1">
+            <div className="px-6 py-3 space-y-0.5">
               {navLinks.map(link => (
                 <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className="block px-4 py-2.5 rounded-lg text-[14px] font-semibold transition-colors"
-                  style={{
-                    color: pathname === link.href ? '#c084fc' : 'var(--color-text-secondary)',
-                    background: pathname === link.href ? 'rgba(168,85,247,0.1)' : 'transparent',
-                  }}
+                  className="block px-3 py-2.5 rounded-lg text-[14px] font-medium"
+                  style={{ color: pathname === link.href ? 'var(--color-text-primary)' : 'var(--color-text-tertiary)' }}
                 >
                   {t(link.label)}
                 </Link>
@@ -171,19 +158,14 @@ export default function Navbar() {
   );
 }
 
-function NavButton({ children, onClick, label }) {
+function NavBtn({ children, onClick }) {
   return (
     <button
       onClick={onClick}
-      className="w-9 h-9 rounded-lg flex items-center justify-center cursor-pointer border-none transition-all duration-200"
+      className="w-8 h-8 rounded-md flex items-center justify-center cursor-pointer border-none transition-colors duration-200"
       style={{ background: 'transparent' }}
-      aria-label={label}
-      onMouseEnter={e => {
-        e.currentTarget.style.background = 'rgba(255,255,255,0.06)';
-      }}
-      onMouseLeave={e => {
-        e.currentTarget.style.background = 'transparent';
-      }}
+      onMouseEnter={e => e.currentTarget.style.background = 'var(--color-surface-raised)'}
+      onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
     >
       {children}
     </button>
