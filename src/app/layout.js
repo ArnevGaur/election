@@ -5,6 +5,7 @@ import { ChatProvider } from '@/context/ChatContext';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import ChatWidget from '@/components/chat/ChatWidget';
+import ParallaxBackground from '@/components/ui/ParallaxBackground';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -23,8 +24,9 @@ export default function RootLayout({ children }) {
       <body className="font-sans antialiased min-h-screen flex flex-col">
         <AppProvider>
           <ChatProvider>
+            <ParallaxBackground />
             <Navbar />
-            <main className="flex-1">{children}</main>
+            <main className="flex-1 relative z-10">{children}</main>
             <Footer />
             <ChatWidget />
           </ChatProvider>
