@@ -1,0 +1,38 @@
+// Mock state data for Indian states personalization
+export const stateData = {
+  "Andhra Pradesh": { authority: "Chief Electoral Officer, AP", website: "https://ceoandhra.nic.in", helpline: "1950", registrationDeadline: "45 days before polling", pollingDate: "TBD - Check ECI website" },
+  "Arunachal Pradesh": { authority: "Chief Electoral Officer, Arunachal Pradesh", website: "https://ceoarunachal.nic.in", helpline: "1950", registrationDeadline: "45 days before polling", pollingDate: "TBD" },
+  "Assam": { authority: "Chief Electoral Officer, Assam", website: "https://ceoassam.nic.in", helpline: "1950", registrationDeadline: "45 days before polling", pollingDate: "TBD" },
+  "Bihar": { authority: "Chief Electoral Officer, Bihar", website: "https://ceobihar.nic.in", helpline: "1950", registrationDeadline: "45 days before polling", pollingDate: "TBD" },
+  "Chhattisgarh": { authority: "Chief Electoral Officer, Chhattisgarh", website: "https://ceochhattisgarh.nic.in", helpline: "1950", registrationDeadline: "45 days before polling", pollingDate: "TBD" },
+  "Goa": { authority: "Chief Electoral Officer, Goa", website: "https://ceogoa.nic.in", helpline: "1950", registrationDeadline: "45 days before polling", pollingDate: "TBD" },
+  "Gujarat": { authority: "Chief Electoral Officer, Gujarat", website: "https://ceo.gujarat.gov.in", helpline: "1950", registrationDeadline: "45 days before polling", pollingDate: "TBD" },
+  "Haryana": { authority: "Chief Electoral Officer, Haryana", website: "https://ceoharyana.gov.in", helpline: "1950", registrationDeadline: "45 days before polling", pollingDate: "TBD" },
+  "Himachal Pradesh": { authority: "Chief Electoral Officer, HP", website: "https://ceohimachal.nic.in", helpline: "1950", registrationDeadline: "45 days before polling", pollingDate: "TBD" },
+  "Jharkhand": { authority: "Chief Electoral Officer, Jharkhand", website: "https://ceojharkhand.nic.in", helpline: "1950", registrationDeadline: "45 days before polling", pollingDate: "TBD" },
+  "Karnataka": { authority: "Chief Electoral Officer, Karnataka", website: "https://ceokarnataka.kar.nic.in", helpline: "1950", registrationDeadline: "45 days before polling", pollingDate: "TBD" },
+  "Kerala": { authority: "Chief Electoral Officer, Kerala", website: "https://ceo.kerala.gov.in", helpline: "1950", registrationDeadline: "45 days before polling", pollingDate: "TBD" },
+  "Madhya Pradesh": { authority: "Chief Electoral Officer, MP", website: "https://ceomadhyapradesh.nic.in", helpline: "1950", registrationDeadline: "45 days before polling", pollingDate: "TBD" },
+  "Maharashtra": { authority: "Chief Electoral Officer, Maharashtra", website: "https://ceo.maharashtra.gov.in", helpline: "1950", registrationDeadline: "45 days before polling", pollingDate: "TBD" },
+  "Manipur": { authority: "Chief Electoral Officer, Manipur", website: "https://ceomanipur.nic.in", helpline: "1950", registrationDeadline: "45 days before polling", pollingDate: "TBD" },
+  "Meghalaya": { authority: "Chief Electoral Officer, Meghalaya", website: "https://ceomeghalaya.nic.in", helpline: "1950", registrationDeadline: "45 days before polling", pollingDate: "TBD" },
+  "Mizoram": { authority: "Chief Electoral Officer, Mizoram", website: "https://ceomizoram.nic.in", helpline: "1950", registrationDeadline: "45 days before polling", pollingDate: "TBD" },
+  "Nagaland": { authority: "Chief Electoral Officer, Nagaland", website: "https://ceonagaland.nic.in", helpline: "1950", registrationDeadline: "45 days before polling", pollingDate: "TBD" },
+  "Odisha": { authority: "Chief Electoral Officer, Odisha", website: "https://ceoodisha.nic.in", helpline: "1950", registrationDeadline: "45 days before polling", pollingDate: "TBD" },
+  "Punjab": { authority: "Chief Electoral Officer, Punjab", website: "https://ceopunjab.nic.in", helpline: "1950", registrationDeadline: "45 days before polling", pollingDate: "TBD" },
+  "Rajasthan": { authority: "Chief Electoral Officer, Rajasthan", website: "https://ceorajasthan.nic.in", helpline: "1950", registrationDeadline: "45 days before polling", pollingDate: "TBD" },
+  "Sikkim": { authority: "Chief Electoral Officer, Sikkim", website: "https://ceosikkim.nic.in", helpline: "1950", registrationDeadline: "45 days before polling", pollingDate: "TBD" },
+  "Tamil Nadu": { authority: "Chief Electoral Officer, Tamil Nadu", website: "https://elections.tn.gov.in", helpline: "1950", registrationDeadline: "45 days before polling", pollingDate: "TBD" },
+  "Telangana": { authority: "Chief Electoral Officer, Telangana", website: "https://ceotelangana.nic.in", helpline: "1950", registrationDeadline: "45 days before polling", pollingDate: "TBD" },
+  "Tripura": { authority: "Chief Electoral Officer, Tripura", website: "https://ceotripura.nic.in", helpline: "1950", registrationDeadline: "45 days before polling", pollingDate: "TBD" },
+  "Uttar Pradesh": { authority: "Chief Electoral Officer, UP", website: "https://ceouttarpradesh.nic.in", helpline: "1950", registrationDeadline: "45 days before polling", pollingDate: "TBD" },
+  "Uttarakhand": { authority: "Chief Electoral Officer, Uttarakhand", website: "https://ceouttarakhand.nic.in", helpline: "1950", registrationDeadline: "45 days before polling", pollingDate: "TBD" },
+  "West Bengal": { authority: "Chief Electoral Officer, West Bengal", website: "https://ceowestbengal.nic.in", helpline: "1950", registrationDeadline: "45 days before polling", pollingDate: "TBD" },
+  "Delhi": { authority: "Chief Electoral Officer, Delhi", website: "https://ceodelhi.gov.in", helpline: "1950", registrationDeadline: "45 days before polling", pollingDate: "TBD" },
+  "Jammu & Kashmir": { authority: "Chief Electoral Officer, J&K", website: "https://ceojk.nic.in", helpline: "1950", registrationDeadline: "45 days before polling", pollingDate: "TBD" },
+  "Ladakh": { authority: "Chief Electoral Officer, Ladakh", website: "https://ceoladakh.nic.in", helpline: "1950", registrationDeadline: "45 days before polling", pollingDate: "TBD" },
+  "Puducherry": { authority: "Chief Electoral Officer, Puducherry", website: "https://ceopuducherry.py.gov.in", helpline: "1950", registrationDeadline: "45 days before polling", pollingDate: "TBD" },
+  "Chandigarh": { authority: "Chief Electoral Officer, Chandigarh", website: "https://ceochandigarh.nic.in", helpline: "1950", registrationDeadline: "45 days before polling", pollingDate: "TBD" }
+};
+
+export const stateList = Object.keys(stateData).sort();
