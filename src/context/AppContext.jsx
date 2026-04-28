@@ -35,7 +35,7 @@ export function AppProvider({ children }) {
   useEffect(() => {
     if (!mounted) return;
     const root = document.documentElement;
-    root.classList.toggle('dark', theme === 'dark');
+    root.classList.toggle('light-mode', theme === 'light');
     root.classList.toggle('simple-mode', simpleMode);
     root.classList.toggle('high-contrast', highContrast);
   }, [theme, simpleMode, highContrast, mounted]);

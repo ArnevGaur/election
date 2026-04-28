@@ -32,7 +32,7 @@ export const storage = {
   },
 
   getTheme() {
-    return this.get('theme') || 'light';
+    return this.get('theme') || 'dark';
   },
 
   saveTheme(theme) {

@@ -24,18 +24,18 @@ export default function Navbar() {
   if (!mounted) return <nav className="h-16" />;
 
   return (
-    <nav className="glass-nav sticky top-0 z-40" style={{ borderBottom: 'none' }}>
+    <nav className="glass-nav sticky top-0 z-40">
       <div className="max-w-[1200px] mx-auto px-5">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 group">
             <div
-              className="w-8 h-8 rounded-xl flex items-center justify-center text-white text-xs font-bold"
-              style={{ background: 'var(--color-accent)' }}
+              className="w-8 h-8 rounded-xl flex items-center justify-center text-white text-[11px] font-extrabold"
+              style={{ background: 'var(--grad-primary)' }}
             >
               E
             </div>
-            <span className="font-bold text-[16px]" style={{ color: 'var(--color-text-primary)' }}>
+            <span className="font-bold text-[15px] gradient-text">
               Election Guide
             </span>
           </Link>
@@ -48,13 +48,23 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="relative px-3.5 py-2 text-[13px] font-bold rounded-xl transition-colors"
+                  className="relative px-3.5 py-2 text-[13px] font-semibold rounded-lg transition-all duration-200"
                   style={{
-                    color: active ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
-                    background: active ? 'var(--color-bg)' : 'transparent',
+                    color: active ? '#c084fc' : 'var(--color-text-secondary)',
+                    background: active ? 'rgba(168,85,247,0.1)' : 'transparent',
                   }}
-                  onMouseEnter={e => { if (!active) e.target.style.color = 'var(--color-text-primary)'; }}
-                  onMouseLeave={e => { if (!active) e.target.style.color = 'var(--color-text-secondary)'; }}
+                  onMouseEnter={e => {
+                    if (!active) {
+                      e.target.style.color = 'var(--color-text-primary)';
+                      e.target.style.background = 'rgba(255,255,255,0.04)';
+                    }
+                  }}
+                  onMouseLeave={e => {
+                    if (!active) {
+                      e.target.style.color = 'var(--color-text-secondary)';
+                      e.target.style.background = 'transparent';
+                    }
+                  }}
                 >
                   {t(link.label)}
                 </Link>
@@ -66,26 +76,26 @@ export default function Navbar() {
           <div className="flex items-center gap-1.5">
             {/* Progress */}
             {progressPercent > 0 && (
-              <div className="hidden sm:flex items-center gap-2 mr-3 px-3 py-1.5 rounded-xl" style={{ background: 'var(--color-accent-subtle)' }}>
-                <div className="w-16 h-1.5 rounded-full overflow-hidden" style={{ background: 'var(--color-accent-muted)' }}>
+              <div className="hidden sm:flex items-center gap-2 mr-3 px-3 py-1.5 rounded-lg" style={{ background: 'rgba(168,85,247,0.1)', border: '1px solid rgba(168,85,247,0.15)' }}>
+                <div className="w-16 h-1.5 rounded-full overflow-hidden" style={{ background: 'rgba(168,85,247,0.2)' }}>
                   <motion.div
                     className="h-full rounded-full"
-                    style={{ background: 'var(--color-accent)' }}
+                    style={{ background: 'var(--grad-primary)' }}
                     initial={{ width: 0 }}
                     animate={{ width: `${progressPercent}%` }}
                   />
                 </div>
-                <span className="text-[11px] font-bold" style={{ color: 'var(--color-accent)' }}>{progressPercent}%</span>
+                <span className="text-[11px] font-bold" style={{ color: '#c084fc' }}>{progressPercent}%</span>
               </div>
             )}
 
-            <NavButton onClick={toggleLanguage} label="Language" title={language === 'en' ? 'हिंदी' : 'EN'}>
+            <NavButton onClick={toggleLanguage} label="Language">
               <span className="text-[11px] font-bold" style={{ color: 'var(--color-text-secondary)' }}>{language === 'en' ? 'हि' : 'EN'}</span>
             </NavButton>
 
             <div className="relative">
               <NavButton onClick={() => setAccessOpen(!accessOpen)} label="Accessibility">
-                <Accessibility size={16} style={{ color: 'var(--color-text-secondary)' }} />
+                <Accessibility size={15} style={{ color: 'var(--color-text-secondary)' }} />
               </NavButton>
               <AnimatePresence>
                 {accessOpen && (
@@ -94,8 +104,8 @@ export default function Navbar() {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 4, scale: 0.97 }}
                     transition={{ duration: 0.15 }}
-                    className="absolute right-0 mt-2 w-56 rounded-2xl p-4 space-y-3 z-50"
-                    style={{ background: 'var(--color-surface)', boxShadow: 'var(--shadow-lg)' }}
+                    className="absolute right-0 mt-2 w-56 rounded-xl p-4 space-y-3 z-50 glass-card"
+                    style={{ boxShadow: 'var(--shadow-lg)' }}
                   >
                     <Toggle enabled={simpleMode} onChange={setSimpleMode} label={t({ en: 'Simple Mode', hi: 'सरल मोड' })} size="sm" />
                     <Toggle enabled={highContrast} onChange={setHighContrast} label={t({ en: 'High Contrast', hi: 'हाई कंट्रास्ट' })} size="sm" />
@@ -107,8 +117,8 @@ export default function Navbar() {
             <NavButton onClick={toggleTheme} label="Theme">
               <motion.div key={theme} initial={{ rotate: -30, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} transition={{ duration: 0.15 }}>
                 {theme === 'dark'
-                  ? <Sun size={16} style={{ color: '#fbbf24' }} />
-                  : <Moon size={16} style={{ color: 'var(--color-text-secondary)' }} />
+                  ? <Sun size={15} style={{ color: '#fbbf24' }} />
+                  : <Moon size={15} style={{ color: 'var(--color-text-secondary)' }} />
                 }
               </motion.div>
             </NavButton>
@@ -116,7 +126,7 @@ export default function Navbar() {
             {/* Mobile toggle */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="md:hidden w-9 h-9 rounded-xl flex items-center justify-center cursor-pointer border-none"
+              className="md:hidden w-9 h-9 rounded-lg flex items-center justify-center cursor-pointer border-none"
               style={{ background: 'transparent' }}
               aria-label="Menu"
             >
@@ -136,8 +146,7 @@ export default function Navbar() {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden overflow-hidden"
-            style={{ background: 'var(--color-surface)' }}
+            className="md:hidden overflow-hidden glass-card"
           >
             <div className="px-5 py-3 space-y-1">
               {navLinks.map(link => (
@@ -145,10 +154,10 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className="block px-4 py-2.5 rounded-xl text-[14px] font-bold transition-colors"
+                  className="block px-4 py-2.5 rounded-lg text-[14px] font-semibold transition-colors"
                   style={{
-                    color: pathname === link.href ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
-                    background: pathname === link.href ? 'var(--color-bg)' : 'transparent',
+                    color: pathname === link.href ? '#c084fc' : 'var(--color-text-secondary)',
+                    background: pathname === link.href ? 'rgba(168,85,247,0.1)' : 'transparent',
                   }}
                 >
                   {t(link.label)}
@@ -166,11 +175,15 @@ function NavButton({ children, onClick, label }) {
   return (
     <button
       onClick={onClick}
-      className="w-9 h-9 rounded-xl flex items-center justify-center cursor-pointer border-none transition-colors"
+      className="w-9 h-9 rounded-lg flex items-center justify-center cursor-pointer border-none transition-all duration-200"
       style={{ background: 'transparent' }}
       aria-label={label}
-      onMouseEnter={e => e.currentTarget.style.background = 'var(--color-bg)'}
-      onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+      onMouseEnter={e => {
+        e.currentTarget.style.background = 'rgba(255,255,255,0.06)';
+      }}
+      onMouseLeave={e => {
+        e.currentTarget.style.background = 'transparent';
+      }}
     >
       {children}
     </button>
