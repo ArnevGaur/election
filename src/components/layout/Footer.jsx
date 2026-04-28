@@ -6,8 +6,9 @@ export default function Footer() {
   const { t } = useApp();
 
   return (
-    <footer className="mt-auto border-t" style={{ borderColor: 'var(--color-border)', background: 'var(--color-bg)' }}>
-      <div className="max-w-6xl mx-auto px-5 py-10">
+    <footer className="mt-auto">
+      <div className="max-w-[1200px] mx-auto px-5 pb-8">
+        <div className="rounded-2xl p-8" style={{ background: 'var(--color-surface)', boxShadow: 'var(--shadow-card)' }}>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
           <div>
             <div className="flex items-center gap-2 mb-3">
@@ -71,10 +72,11 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 pt-5 border-t text-center" style={{ borderColor: 'var(--color-border-subtle)' }}>
+        <div className="mt-6 pt-5 text-center" style={{ borderTop: '1px solid var(--color-border)' }}>
           <p className="text-[12px]" style={{ color: 'var(--color-text-tertiary)' }}>
             {t({ en: 'Educational project · Not affiliated with any political party', hi: 'शैक्षिक परियोजना · किसी राजनीतिक दल से संबद्ध नहीं' })}
           </p>
+        </div>
         </div>
       </div>
     </footer>

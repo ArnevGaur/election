@@ -21,18 +21,21 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [accessOpen, setAccessOpen] = useState(false);
 
-  if (!mounted) return <nav className="h-14" />;
+  if (!mounted) return <nav className="h-16" />;
 
   return (
-    <nav className="glass-nav sticky top-0 z-40 border-b" style={{ borderColor: 'var(--color-border)' }}>
-      <div className="max-w-6xl mx-auto px-5">
-        <div className="flex items-center justify-between h-14">
+    <nav className="glass-nav sticky top-0 z-40" style={{ borderBottom: 'none' }}>
+      <div className="max-w-[1200px] mx-auto px-5">
+        <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 no-underline group">
-            <div className="w-7 h-7 rounded-lg flex items-center justify-center text-white text-xs font-bold" style={{ background: 'var(--color-accent)' }}>
+          <Link href="/" className="flex items-center gap-2.5 group">
+            <div
+              className="w-8 h-8 rounded-xl flex items-center justify-center text-white text-xs font-bold"
+              style={{ background: 'var(--color-accent)' }}
+            >
               E
             </div>
-            <span className="font-semibold text-[15px]" style={{ color: 'var(--color-text-primary)' }}>
+            <span className="font-bold text-[16px]" style={{ color: 'var(--color-text-primary)' }}>
               Election Guide
             </span>
           </Link>
@@ -45,31 +48,26 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="relative px-3 py-1.5 text-[13px] font-medium rounded-md transition-colors no-underline"
-                  style={{ color: active ? 'var(--color-accent)' : 'var(--color-text-secondary)' }}
+                  className="relative px-3.5 py-2 text-[13px] font-bold rounded-xl transition-colors"
+                  style={{
+                    color: active ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
+                    background: active ? 'var(--color-bg)' : 'transparent',
+                  }}
                   onMouseEnter={e => { if (!active) e.target.style.color = 'var(--color-text-primary)'; }}
                   onMouseLeave={e => { if (!active) e.target.style.color = 'var(--color-text-secondary)'; }}
                 >
                   {t(link.label)}
-                  {active && (
-                    <motion.div
-                      layoutId="nav-indicator"
-                      className="absolute -bottom-[13px] left-0 right-0 h-[2px] rounded-full"
-                      style={{ background: 'var(--color-accent)' }}
-                      transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                    />
-                  )}
                 </Link>
               );
             })}
           </div>
 
           {/* Controls */}
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1.5">
             {/* Progress */}
             {progressPercent > 0 && (
-              <div className="hidden sm:flex items-center gap-2 mr-3 px-2.5 py-1 rounded-full" style={{ background: 'var(--color-accent-subtle)' }}>
-                <div className="w-16 h-1 rounded-full overflow-hidden" style={{ background: 'var(--color-accent-muted)' }}>
+              <div className="hidden sm:flex items-center gap-2 mr-3 px-3 py-1.5 rounded-xl" style={{ background: 'var(--color-accent-subtle)' }}>
+                <div className="w-16 h-1.5 rounded-full overflow-hidden" style={{ background: 'var(--color-accent-muted)' }}>
                   <motion.div
                     className="h-full rounded-full"
                     style={{ background: 'var(--color-accent)' }}
@@ -77,7 +75,7 @@ export default function Navbar() {
                     animate={{ width: `${progressPercent}%` }}
                   />
                 </div>
-                <span className="text-[11px] font-semibold" style={{ color: 'var(--color-accent)' }}>{progressPercent}%</span>
+                <span className="text-[11px] font-bold" style={{ color: 'var(--color-accent)' }}>{progressPercent}%</span>
               </div>
             )}
 
@@ -87,7 +85,7 @@ export default function Navbar() {
 
             <div className="relative">
               <NavButton onClick={() => setAccessOpen(!accessOpen)} label="Accessibility">
-                <Accessibility size={15} style={{ color: 'var(--color-text-secondary)' }} />
+                <Accessibility size={16} style={{ color: 'var(--color-text-secondary)' }} />
               </NavButton>
               <AnimatePresence>
                 {accessOpen && (
@@ -96,8 +94,8 @@ export default function Navbar() {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 4, scale: 0.97 }}
                     transition={{ duration: 0.15 }}
-                    className="absolute right-0 mt-2 w-52 rounded-xl p-3.5 space-y-3 z-50"
-                    style={{ background: 'var(--color-surface-raised)', border: '1px solid var(--color-border)', boxShadow: 'var(--shadow-lg)' }}
+                    className="absolute right-0 mt-2 w-56 rounded-2xl p-4 space-y-3 z-50"
+                    style={{ background: 'var(--color-surface)', boxShadow: 'var(--shadow-lg)' }}
                   >
                     <Toggle enabled={simpleMode} onChange={setSimpleMode} label={t({ en: 'Simple Mode', hi: 'सरल मोड' })} size="sm" />
                     <Toggle enabled={highContrast} onChange={setHighContrast} label={t({ en: 'High Contrast', hi: 'हाई कंट्रास्ट' })} size="sm" />
@@ -109,8 +107,8 @@ export default function Navbar() {
             <NavButton onClick={toggleTheme} label="Theme">
               <motion.div key={theme} initial={{ rotate: -30, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} transition={{ duration: 0.15 }}>
                 {theme === 'dark'
-                  ? <Sun size={15} style={{ color: '#fbbf24' }} />
-                  : <Moon size={15} style={{ color: 'var(--color-text-secondary)' }} />
+                  ? <Sun size={16} style={{ color: '#fbbf24' }} />
+                  : <Moon size={16} style={{ color: 'var(--color-text-secondary)' }} />
                 }
               </motion.div>
             </NavButton>
@@ -118,7 +116,7 @@ export default function Navbar() {
             {/* Mobile toggle */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="md:hidden w-8 h-8 rounded-md flex items-center justify-center cursor-pointer border-none"
+              className="md:hidden w-9 h-9 rounded-xl flex items-center justify-center cursor-pointer border-none"
               style={{ background: 'transparent' }}
               aria-label="Menu"
             >
@@ -138,17 +136,20 @@ export default function Navbar() {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden overflow-hidden border-t"
-            style={{ borderColor: 'var(--color-border)', background: 'var(--color-surface)' }}
+            className="md:hidden overflow-hidden"
+            style={{ background: 'var(--color-surface)' }}
           >
-            <div className="px-5 py-3 space-y-0.5">
+            <div className="px-5 py-3 space-y-1">
               {navLinks.map(link => (
                 <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className="block px-3 py-2.5 rounded-lg text-[14px] font-medium no-underline transition-colors"
-                  style={{ color: pathname === link.href ? 'var(--color-accent)' : 'var(--color-text-secondary)' }}
+                  className="block px-4 py-2.5 rounded-xl text-[14px] font-bold transition-colors"
+                  style={{
+                    color: pathname === link.href ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
+                    background: pathname === link.href ? 'var(--color-bg)' : 'transparent',
+                  }}
                 >
                   {t(link.label)}
                 </Link>
@@ -165,10 +166,10 @@ function NavButton({ children, onClick, label }) {
   return (
     <button
       onClick={onClick}
-      className="w-8 h-8 rounded-md flex items-center justify-center cursor-pointer border-none transition-colors"
+      className="w-9 h-9 rounded-xl flex items-center justify-center cursor-pointer border-none transition-colors"
       style={{ background: 'transparent' }}
       aria-label={label}
-      onMouseEnter={e => e.currentTarget.style.background = 'var(--color-bg-tertiary)'}
+      onMouseEnter={e => e.currentTarget.style.background = 'var(--color-bg)'}
       onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
     >
       {children}
