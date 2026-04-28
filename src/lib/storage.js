@@ -1,7 +1,17 @@
-// localStorage helpers for persisting user progress
+/**
+ * Local storage helper module for persisting user progress and preferences.
+ * Includes safety checks for SSR (Server-Side Rendering) environments.
+ * @module storage
+ */
+
 const PREFIX = 'election-guide-';
 
 export const storage = {
+  /**
+   * Retrieves and parses a JSON value from local storage.
+   * @param {string} key - The storage key (without prefix)
+   * @returns {any|null} The parsed value or null if not found/error
+   */
   get(key) {
     if (typeof window === 'undefined') return null;
     try {
@@ -10,6 +20,11 @@ export const storage = {
     } catch { return null; }
   },
 
+  /**
+   * Stringifies and stores a value in local storage.
+   * @param {string} key - The storage key (without prefix)
+   * @param {any} value - The value to store
+   */
   set(key, value) {
     if (typeof window === 'undefined') return;
     try {
@@ -17,6 +32,10 @@ export const storage = {
     } catch { /* storage full or unavailable */ }
   },
 
+  /**
+   * Removes a value from local storage.
+   * @param {string} key - The storage key (without prefix)
+   */
   remove(key) {
     if (typeof window === 'undefined') return;
     localStorage.removeItem(PREFIX + key);

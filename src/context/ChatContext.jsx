@@ -5,7 +5,7 @@ const ChatContext = createContext(null);
 
 export function ChatProvider({ children }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([
+  const [messages, setMessages] = useState(() => [
     {
       role: 'assistant',
       content: "👋 Hi! I'm your Niti assistant. Ask me anything about elections — registration, voting, candidates, or results!",

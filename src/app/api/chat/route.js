@@ -1,9 +1,40 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { NextResponse } from 'next/server';
 
+// Simple in-memory rate limiter (resets when server restarts/scales, but sufficient for basic protection)
+const rateLimit = new Map();
+const RATE_LIMIT_WINDOW_MS = 60000; // 1 minute
+const MAX_REQUESTS_PER_WINDOW = 10;
+
+// Basic XSS sanitization
+const sanitizeInput = (input) => {
+  if (typeof input !== 'string') return '';
+  return input.replace(/[<>]/g, '').trim();
+};
+
 export async function POST(request) {
   try {
-    const { message, language, context, history } = await request.json();
+    // Rate Limiting
+    const ip = request.headers.get('x-forwarded-for') || '127.0.0.1';
+    const currentTime = Date.now();
+    const requestData = rateLimit.get(ip) || { count: 0, startTime: currentTime };
+
+    if (currentTime - requestData.startTime > RATE_LIMIT_WINDOW_MS) {
+      requestData.count = 1;
+      requestData.startTime = currentTime;
+    } else {
+      requestData.count++;
+      if (requestData.count > MAX_REQUESTS_PER_WINDOW) {
+        return NextResponse.json({ reply: 'Too many requests. Please wait a moment.' }, { status: 429 });
+      }
+    }
+    rateLimit.set(ip, requestData);
+
+    let { message, language, context, history } = await request.json();
+    
+    // Sanitize
+    message = sanitizeInput(message);
+    if (!message) return NextResponse.json({ reply: 'Empty message received.' }, { status: 400 });
 
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {

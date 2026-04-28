@@ -77,12 +77,12 @@ export default function Navbar() {
               </div>
             )}
 
-            <NavBtn onClick={toggleLanguage}>
+            <NavBtn onClick={toggleLanguage} ariaLabel="Toggle language">
               <span className="text-[11px] font-semibold" style={{ color: 'var(--color-text-tertiary)' }}>{language === 'en' ? 'हि' : 'EN'}</span>
             </NavBtn>
 
             <div className="relative">
-              <NavBtn onClick={() => setAccessOpen(!accessOpen)}>
+              <NavBtn onClick={() => setAccessOpen(!accessOpen)} ariaLabel="Accessibility settings" ariaExpanded={accessOpen}>
                 <Accessibility size={14} style={{ color: 'var(--color-text-tertiary)' }} />
               </NavBtn>
               <AnimatePresence>
@@ -101,7 +101,7 @@ export default function Navbar() {
               </AnimatePresence>
             </div>
 
-            <NavBtn onClick={toggleTheme}>
+            <NavBtn onClick={toggleTheme} ariaLabel="Toggle theme">
               <motion.div key={theme} initial={{ rotate: -20, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} transition={{ duration: 0.12 }}>
                 {theme === 'dark'
                   ? <Sun size={14} style={{ color: 'var(--color-accent)' }} />
@@ -115,6 +115,7 @@ export default function Navbar() {
               className="md:hidden w-8 h-8 rounded-md flex items-center justify-center cursor-pointer border-none"
               style={{ background: 'transparent' }}
               aria-label="Menu"
+              aria-expanded={mobileOpen}
             >
               {mobileOpen
                 ? <X size={16} style={{ color: 'var(--color-text-primary)' }} />
@@ -154,11 +155,13 @@ export default function Navbar() {
   );
 }
 
-function NavBtn({ children, onClick }) {
+function NavBtn({ children, onClick, ariaLabel, ariaExpanded }) {
   return (
     <button
       onClick={onClick}
-      className="w-8 h-8 rounded-md flex items-center justify-center cursor-pointer border-none transition-colors duration-200"
+      aria-label={ariaLabel}
+      aria-expanded={ariaExpanded}
+      className="w-8 h-8 rounded-md flex items-center justify-center cursor-pointer border-none transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]"
       style={{ background: 'transparent' }}
       onMouseEnter={e => e.currentTarget.style.background = 'var(--color-surface-raised)'}
       onMouseLeave={e => e.currentTarget.style.background = 'transparent'}

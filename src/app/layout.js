@@ -1,11 +1,18 @@
 import { Inter } from 'next/font/google';
+import { GoogleAnalytics } from '@next/third-parties/google';
+import dynamic from 'next/dynamic';
 import './globals.css';
 import { AppProvider } from '@/context/AppContext';
 import { ChatProvider } from '@/context/ChatContext';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
-import ChatWidget from '@/components/chat/ChatWidget';
-import ParallaxBackground from '@/components/ui/ParallaxBackground';
+
+const ChatWidget = dynamic(() => import('@/components/chat/ChatWidget'), {
+  ssr: false,
+});
+const ParallaxBackground = dynamic(() => import('@/components/ui/ParallaxBackground'), {
+  ssr: false,
+});
 
 const inter = Inter({
   subsets: ['latin'],
@@ -31,6 +38,7 @@ export default function RootLayout({ children }) {
             <ChatWidget />
           </ChatProvider>
         </AppProvider>
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || 'G-XXXXXXXXXX'} />
       </body>
     </html>
   );

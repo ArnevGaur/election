@@ -2,7 +2,7 @@
 import { motion } from 'framer-motion';
 
 export default function Button({ children, variant = 'primary', size = 'md', className = '', icon: Icon, iconRight, disabled, onClick, ...props }) {
-  const base = 'inline-flex items-center justify-center gap-2 font-semibold rounded-xl transition-all duration-200 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed';
+  const base = 'inline-flex items-center justify-center gap-2 font-semibold rounded-xl transition-all duration-200 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]';
 
   const variants = {
     primary: {

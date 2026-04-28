@@ -76,6 +76,7 @@ export default function ChatWidget() {
                 onClick={toggleChat}
                 className="w-7 h-7 rounded-md flex items-center justify-center cursor-pointer border-none transition-colors"
                 style={{ background: 'transparent' }}
+                aria-label="Close chat"
                 onMouseEnter={e => e.currentTarget.style.background = 'var(--color-surface-raised)'}
                 onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
               >
@@ -83,7 +84,7 @@ export default function ChatWidget() {
               </button>
             </div>
 
-            <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3">
+            <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3" aria-live="polite">
               {messages.map((msg, i) => (
                 <motion.div
                   key={i}
@@ -130,6 +131,7 @@ export default function ChatWidget() {
                     onClick={() => sendMessage(t(qr), language)}
                     className="px-3 py-1.5 text-[12px] rounded-lg cursor-pointer transition-colors duration-200"
                     style={{ background: 'transparent', border: '1px solid var(--color-border)', color: 'var(--color-text-tertiary)' }}
+                    aria-label={`Quick reply: ${t(qr)}`}
                     onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--color-border-hover)'; e.currentTarget.style.color = 'var(--color-text-primary)'; }}
                     onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--color-border)'; e.currentTarget.style.color = 'var(--color-text-tertiary)'; }}
                   >
@@ -156,6 +158,7 @@ export default function ChatWidget() {
                   disabled={!input.trim() || isLoading}
                   className="w-7 h-7 rounded-lg flex items-center justify-center cursor-pointer border-none disabled:opacity-25"
                   style={{ background: 'var(--color-accent)', color: '#0c0c0e' }}
+                  aria-label="Send message"
                 >
                   <ArrowUp size={13} />
                 </button>

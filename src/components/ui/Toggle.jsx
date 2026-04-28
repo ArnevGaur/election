@@ -13,7 +13,7 @@ export default function Toggle({ enabled, onChange, label, size = 'md' }) {
       aria-checked={enabled}
       aria-label={label}
       onClick={() => onChange(!enabled)}
-      className="flex items-center gap-2.5 cursor-pointer bg-transparent border-none p-0"
+      className="flex items-center gap-2.5 cursor-pointer bg-transparent border-none p-0 rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
     >
       <div
         className="relative rounded-full transition-colors duration-200"

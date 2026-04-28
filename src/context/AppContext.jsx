@@ -22,6 +22,7 @@ export function AppProvider({ children }) {
 
   // Load from localStorage on mount
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setThemeState(storage.getTheme());
     setLanguageState(storage.getLanguage());
     setSimpleModeState(storage.getSimpleMode());
