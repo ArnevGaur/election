@@ -65,7 +65,7 @@ export default function ChatWidget() {
                 </div>
                 <div>
                   <p className="text-[13px] font-semibold" style={{ color: 'var(--color-text-primary)' }}>
-                    {t({ en: 'Election Assistant', hi: 'चुनाव सहायक' })}
+                    {t({ en: 'Niti Assistant', hi: 'नीति सहायक' })}
                   </p>
                   <p className="text-[11px]" style={{ color: 'var(--color-text-tertiary)' }}>
                     {t({ en: 'Ask anything', hi: 'कुछ भी पूछें' })}

@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useApp } from '@/context/AppContext';
+import Logo from '@/components/ui/Logo';
 
 export default function Footer() {
   const { t } = useApp();
@@ -12,8 +13,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-10">
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <div className="w-5 h-5 rounded-[5px] flex items-center justify-center text-[9px] font-extrabold" style={{ background: 'var(--color-accent)', color: '#0c0c0e' }}>E</div>
-              <span className="font-semibold text-[13px]" style={{ color: 'var(--color-text-primary)' }}>Election Guide</span>
+              <Logo size={20} />
+              <span className="font-bold text-[13px] tracking-tight" style={{ color: 'var(--color-text-primary)' }}>Niti</span>
             </div>
             <p className="text-[13px] leading-relaxed max-w-xs" style={{ color: 'var(--color-text-tertiary)' }}>
               {t({ en: 'Making democracy accessible through education.', hi: 'शिक्षा के माध्यम से लोकतंत्र को सुलभ बनाना।' })}

@@ -8,7 +8,7 @@ export function ChatProvider({ children }) {
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: "👋 Hi! I'm your Election Guide Assistant. Ask me anything about elections — registration, voting, candidates, or results!",
+      content: "👋 Hi! I'm your Niti assistant. Ask me anything about elections — registration, voting, candidates, or results!",
       timestamp: Date.now()
     }
   ]);

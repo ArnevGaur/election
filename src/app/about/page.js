@@ -30,7 +30,7 @@ export default function AboutPage() {
           {t({ en: 'About', hi: 'परिचय' })}
         </p>
         <h1 className="text-[clamp(1.75rem,4vw,2.5rem)] font-bold tracking-tight mb-3" style={{ color: 'var(--color-text-primary)' }}>
-          {t({ en: 'About Election Guide', hi: 'इलेक्शन गाइड के बारे में' })}
+          {t({ en: 'About Niti', hi: 'नीति के बारे में' })}
         </h1>
         <p className="text-[15px] leading-[1.7]" style={{ color: 'var(--color-text-secondary)' }}>
           {t({ en: 'A free, open educational project helping citizens understand the democratic process through interactive learning.', hi: 'एक मुफ्त शैक्षिक परियोजना जो नागरिकों को लोकतांत्रिक प्रक्रिया समझने में मदद करती है।' })}

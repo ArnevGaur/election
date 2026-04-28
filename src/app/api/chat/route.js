@@ -18,7 +18,7 @@ export async function POST(request) {
     const genAI = new GoogleGenerativeAI(apiKey);
     const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
 
-    const systemPrompt = `You are an Election Guide Assistant for Indian elections. 
+    const systemPrompt = `You are Niti, an AI assistant for Indian elections. 
 You help users understand the election process in simple, neutral language.
 Current context: The user is on the "${context}" page.
 Language preference: ${language === 'hi' ? 'Hindi' : 'English'}

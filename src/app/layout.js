@@ -12,9 +12,9 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: 'Election Guide Assistant — Understand Elections in Minutes',
-  description: 'An interactive, educational web app that helps you understand the complete election process through step-by-step guidance, AI chat, visual timelines, and quizzes.',
-  keywords: 'election, voting, democracy, voter registration, India elections, election guide',
+  title: 'Niti — Understand Democracy in Minutes',
+  description: 'An interactive, educational platform that helps you understand the complete election process through step-by-step guidance, AI chat, visual timelines, and quizzes.',
+  keywords: 'Niti, election, voting, democracy, voter registration, India elections, election guide',
 };
 
 export default function RootLayout({ children }) {

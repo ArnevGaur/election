@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Sun, Moon, Menu, X, Accessibility } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
 import Toggle from '@/components/ui/Toggle';
+import Logo from '@/components/ui/Logo';
 
 const navLinks = [
   { href: '/', label: { en: 'Home', hi: 'होम' } },
@@ -28,15 +29,10 @@ export default function Navbar() {
       <div className="max-w-[980px] mx-auto px-6">
         <div className="flex items-center justify-between h-14">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <div
-              className="w-6 h-6 rounded-md flex items-center justify-center text-[10px] font-extrabold"
-              style={{ background: 'var(--color-accent)', color: '#0c0c0e' }}
-            >
-              E
-            </div>
-            <span className="font-semibold text-[14px]" style={{ color: 'var(--color-text-primary)' }}>
-              Election Guide
+          <Link href="/" className="flex items-center gap-2.5 group">
+            <Logo size={26} />
+            <span className="font-bold text-[15px] tracking-tight" style={{ color: 'var(--color-text-primary)' }}>
+              Niti
             </span>
           </Link>
 
