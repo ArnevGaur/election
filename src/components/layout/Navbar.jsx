@@ -12,6 +12,7 @@ const navLinks = [
   { href: '/', label: { en: 'Home', hi: 'होम' } },
   { href: '/journey', label: { en: 'Journey', hi: 'यात्रा' } },
   { href: '/timeline', label: { en: 'Timeline', hi: 'टाइमलाइन' } },
+  { href: '/eligibility', label: { en: 'Eligibility', hi: 'पात्रता' } },
   { href: '/quiz', label: { en: 'Quiz', hi: 'क्विज़' } },
   { href: '/about', label: { en: 'About', hi: 'परिचय' } },
 ];

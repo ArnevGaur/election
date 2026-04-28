@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Trophy, RotateCcw, CheckCircle2, XCircle, ArrowRight, Sparkles } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
@@ -18,10 +18,44 @@ export default function QuizPage() {
   const [finished, setFinished] = useState(false);
   const [showExplanation, setShowExplanation] = useState(false);
 
-  if (!mounted) return <div className="min-h-screen" />;
+  const [questions, setQuestions] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const question = quizQuestions[currentQ];
-  const total = quizQuestions.length;
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      try {
+        const res = await fetch('/api/quiz', { method: 'POST' });
+        const data = await res.json();
+        if (data.questions && data.questions.length > 0) {
+          setQuestions(data.questions);
+        } else {
+          setQuestions(quizQuestions.slice(0, 3)); // Fallback
+        }
+      } catch {
+        setQuestions(quizQuestions.slice(0, 3)); // Fallback
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchQuestions();
+  }, []);
+
+  if (!mounted) return <div className="min-h-screen" />;
+  
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="flex gap-2">
+          <span className="w-2.5 h-2.5 rounded-full animate-pulse-dot" style={{ background: 'var(--color-accent)' }} />
+          <span className="w-2.5 h-2.5 rounded-full animate-pulse-dot" style={{ background: 'var(--color-accent)', animationDelay: '0.15s' }} />
+          <span className="w-2.5 h-2.5 rounded-full animate-pulse-dot" style={{ background: 'var(--color-accent)', animationDelay: '0.3s' }} />
+        </div>
+      </div>
+    );
+  }
+
+  const question = questions[currentQ];
+  const total = questions.length;
 
   const handleAnswer = (i) => {
     if (answered) return;
@@ -96,7 +130,7 @@ export default function QuizPage() {
           {t({ en: 'Test Your Knowledge', hi: 'अपना ज्ञान जांचें' })}
         </p>
         <h1 className="text-[clamp(1.5rem,3vw,2rem)] font-bold tracking-tight" style={{ color: 'var(--color-text-primary)' }}>
-          {t({ en: 'Election Quiz', hi: 'चुनाव क्विज़' })}
+          {t({ en: 'AI Election Quiz', hi: 'एआई चुनाव क्विज़' })}
         </h1>
       </motion.div>
 

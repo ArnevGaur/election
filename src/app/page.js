@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { ArrowRight, ChevronRight, ClipboardCheck, IdCard, Users, Vote, Calculator, Trophy, Clock, MessageCircle, Award, Sparkles } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
 import Button from '@/components/ui/Button';
+import InteractiveExplorer from '@/components/ui/InteractiveExplorer';
 
 const ease = [0.25, 0.1, 0.25, 1];
 const stagger = { visible: { transition: { staggerChildren: 0.12 } } };
@@ -19,6 +20,7 @@ export default function HomePage() {
       <Hero t={t} />
       <Process t={t} />
       <Features t={t} />
+      <ExplorerSection t={t} />
       <CTA t={t} />
     </div>
   );
@@ -284,6 +286,49 @@ function Features({ t }) {
             </motion.div>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+/* ────────────────────────────────────────
+   EXPLORER — Interactive Data
+   ──────────────────────────────────────── */
+function ExplorerSection({ t }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-100px' });
+
+  return (
+    <section ref={ref}>
+      <div className="h-px" style={{ background: 'linear-gradient(90deg, transparent 0%, var(--color-border-hover) 50%, transparent 100%)' }} />
+      <div className="max-w-[980px] mx-auto px-6 py-28 md:py-36">
+        <motion.div
+          initial="hidden"
+          animate={inView ? 'visible' : 'hidden'}
+          variants={stagger}
+          className="mb-12"
+        >
+          <motion.p variants={fadeUp} className="text-[13px] font-semibold tracking-wider uppercase mb-4" style={{ color: 'var(--color-accent)' }}>
+            {t({ en: 'Data at a glance', hi: 'एक नज़र में डेटा' })}
+          </motion.p>
+          <motion.h2 variants={fadeUp} className="text-[clamp(1.8rem,4vw,3rem)] font-extrabold leading-[1.1] tracking-[-0.02em]">
+            <span style={{ color: 'var(--color-text-primary)' }}>
+              {t({ en: 'Explore the scale', hi: 'लोकतंत्र के पैमाने को' })}
+            </span>
+            <br />
+            <span style={{ color: 'var(--color-text-secondary)' }}>
+              {t({ en: 'of democracy.', hi: 'समझें।' })}
+            </span>
+          </motion.h2>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          <InteractiveExplorer />
+        </motion.div>
       </div>
     </section>
   );
