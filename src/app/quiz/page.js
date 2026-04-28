@@ -1,12 +1,11 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Trophy, RotateCcw, CheckCircle2, XCircle, ArrowRight, Sparkles } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
 import { quizQuestions } from '@/data/quizQuestions';
 import { badges as badgeDefs } from '@/data/badges';
 import Button from '@/components/ui/Button';
-import Card from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
 
 export default function QuizPage() {
@@ -24,19 +23,18 @@ export default function QuizPage() {
   const question = quizQuestions[currentQ];
   const total = quizQuestions.length;
 
-  const handleAnswer = (optIndex) => {
+  const handleAnswer = (i) => {
     if (answered) return;
-    setSelected(optIndex);
+    setSelected(i);
     setAnswered(true);
     setShowExplanation(true);
-    const isCorrect = optIndex === question.correct;
-    if (isCorrect) setScore(prev => prev + 1);
-    setAnswers(prev => [...prev, { questionId: question.id, selected: optIndex, correct: question.correct, isCorrect }]);
+    if (i === question.correct) setScore(p => p + 1);
+    setAnswers(p => [...p, { selected: i, correct: question.correct, isCorrect: i === question.correct }]);
   };
 
   const handleNext = () => {
     if (currentQ < total - 1) {
-      setCurrentQ(prev => prev + 1);
+      setCurrentQ(p => p + 1);
       setSelected(null);
       setAnswered(false);
       setShowExplanation(false);
@@ -47,152 +45,120 @@ export default function QuizPage() {
   };
 
   const handleRestart = () => {
-    setCurrentQ(0);
-    setSelected(null);
-    setAnswered(false);
-    setScore(0);
-    setAnswers([]);
-    setFinished(false);
-    setShowExplanation(false);
+    setCurrentQ(0); setSelected(null); setAnswered(false);
+    setScore(0); setAnswers([]); setFinished(false); setShowExplanation(false);
   };
 
+  // Results screen
   if (finished) {
-    const percent = Math.round((score / total) * 100);
+    const pct = Math.round((score / total) * 100);
     return (
-      <div className="max-w-2xl mx-auto px-4 sm:px-6 py-16">
-        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 }}>
-          <Card hover={false} className="!p-10 text-center">
-            <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.2, type: 'spring' }}>
-              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center mx-auto mb-6 shadow-xl">
-                <Trophy size={36} className="text-white" />
-              </div>
-            </motion.div>
-
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
-              {t({ en: 'Quiz Complete!', hi: 'क्विज़ पूरा!' })}
+      <div className="max-w-xl mx-auto px-5 py-16">
+        <motion.div initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }}>
+          <div className="rounded-xl p-8 sm:p-10 text-center" style={{ background: 'var(--color-surface)', border: '1px solid var(--color-border)' }}>
+            <div className="w-16 h-16 rounded-2xl mx-auto mb-6 flex items-center justify-center" style={{ background: 'var(--color-accent-subtle)' }}>
+              <Trophy size={28} style={{ color: 'var(--color-accent)' }} />
+            </div>
+            <h2 className="text-[22px] font-bold mb-1" style={{ color: 'var(--color-text-primary)' }}>
+              {t({ en: 'Quiz Complete', hi: 'क्विज़ पूरा' })}
             </h2>
-
-            <div className="text-5xl font-extrabold gradient-text my-4">{score}/{total}</div>
-            <p className="text-slate-500 dark:text-slate-400 mb-6">
-              {percent >= 80
-                ? t({ en: '🎉 Outstanding! You\'re an election expert!', hi: '🎉 शानदार! आप एक चुनाव विशेषज्ञ हैं!' })
-                : percent >= 50
-                ? t({ en: '👍 Good job! Keep learning to improve.', hi: '👍 अच्छा काम! सीखते रहें।' })
-                : t({ en: '📚 Keep going! Review the journey to learn more.', hi: '📚 जारी रखें! अधिक जानने के लिए यात्रा देखें।' })
-              }
+            <div className="text-[48px] font-extrabold my-3" style={{ color: 'var(--color-accent)' }}>{score}/{total}</div>
+            <p className="text-[14px] mb-6" style={{ color: 'var(--color-text-secondary)' }}>
+              {pct >= 80 ? t({ en: 'Outstanding! You\'re an election expert.', hi: 'शानदार! आप चुनाव विशेषज्ञ हैं।' })
+                : pct >= 50 ? t({ en: 'Good job! Keep learning to improve.', hi: 'अच्छा काम! सीखते रहें।' })
+                : t({ en: 'Keep going! Review the journey to learn more.', hi: 'जारी रखें! अधिक जानने के लिए यात्रा देखें।' })}
             </p>
-
-            {/* Progress bar */}
-            <div className="w-full max-w-xs mx-auto mb-8">
-              <div className="w-full h-3 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
-                <motion.div className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full" initial={{ width: 0 }} animate={{ width: `${percent}%` }} transition={{ duration: 1, delay: 0.3 }} />
+            <div className="w-48 mx-auto mb-8">
+              <div className="w-full h-2 rounded-full overflow-hidden" style={{ background: 'var(--color-border)' }}>
+                <motion.div className="h-full rounded-full" style={{ background: 'var(--color-accent)' }} initial={{ width: 0 }} animate={{ width: `${pct}%` }} transition={{ duration: 0.8 }} />
               </div>
-              <p className="text-sm text-slate-500 mt-2">{percent}% {t({ en: 'correct', hi: 'सही' })}</p>
+              <p className="text-[12px] mt-1.5" style={{ color: 'var(--color-text-tertiary)' }}>{pct}%</p>
             </div>
-
-            {/* Earned badges */}
             <div className="mb-8">
-              <h4 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">{t({ en: 'Your Badges', hi: 'आपके बैज' })}</h4>
+              <p className="text-[12px] font-semibold uppercase tracking-wide mb-3" style={{ color: 'var(--color-text-tertiary)' }}>
+                {t({ en: 'Badges', hi: 'बैज' })}
+              </p>
               <div className="flex flex-wrap justify-center gap-4">
-                {badgeDefs.map(b => (
-                  <Badge key={b.id} badge={b} unlocked={progress.badges.includes(b.id)} />
-                ))}
+                {badgeDefs.map(b => <Badge key={b.id} badge={b} unlocked={progress.badges.includes(b.id)} />)}
               </div>
             </div>
-
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-              <Button onClick={handleRestart} icon={RotateCcw} variant="secondary">
-                {t({ en: 'Try Again', hi: 'फिर से कोशिश करें' })}
-              </Button>
-            </div>
-          </Card>
+            <Button onClick={handleRestart} icon={RotateCcw} variant="secondary">{t({ en: 'Try Again', hi: 'फिर से' })}</Button>
+          </div>
         </motion.div>
       </div>
     );
   }
 
   return (
-    <div className="max-w-2xl mx-auto px-4 sm:px-6 py-10">
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">
-          {t({ en: 'Election Knowledge Quiz', hi: 'चुनाव ज्ञान क्विज़' })}
-        </h1>
-        <p className="text-slate-500 dark:text-slate-400">
-          {t({ en: 'Test what you\'ve learned about elections!', hi: 'चुनावों के बारे में जो सीखा उसका परीक्षण करें!' })}
+    <div className="max-w-xl mx-auto px-5 py-12">
+      <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
+        <p className="text-[13px] font-semibold tracking-wide uppercase mb-2" style={{ color: 'var(--color-accent)' }}>
+          {t({ en: 'Test Your Knowledge', hi: 'अपना ज्ञान जांचें' })}
         </p>
+        <h1 className="text-[clamp(1.5rem,3vw,2rem)] font-bold tracking-tight" style={{ color: 'var(--color-text-primary)' }}>
+          {t({ en: 'Election Quiz', hi: 'चुनाव क्विज़' })}
+        </h1>
       </motion.div>
 
       {/* Progress */}
-      <div className="mb-6">
-        <div className="flex items-center justify-between text-sm mb-2">
-          <span className="text-slate-500 dark:text-slate-400">{t({ en: 'Question', hi: 'प्रश्न' })} {currentQ + 1}/{total}</span>
-          <span className="font-medium text-indigo-600 dark:text-indigo-400">{t({ en: 'Score', hi: 'स्कोर' })}: {score}</span>
-        </div>
-        <div className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
-          <motion.div className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full" animate={{ width: `${((currentQ + 1) / total) * 100}%` }} transition={{ duration: 0.3 }} />
-        </div>
+      <div className="flex items-center justify-between text-[13px] mb-3">
+        <span style={{ color: 'var(--color-text-tertiary)' }}>{currentQ + 1} / {total}</span>
+        <span className="font-semibold" style={{ color: 'var(--color-accent)' }}>{t({ en: 'Score', hi: 'स्कोर' })}: {score}</span>
+      </div>
+      <div className="w-full h-1.5 rounded-full overflow-hidden mb-6" style={{ background: 'var(--color-border)' }}>
+        <motion.div className="h-full rounded-full" style={{ background: 'var(--color-accent)' }} animate={{ width: `${((currentQ + 1) / total) * 100}%` }} />
       </div>
 
       <AnimatePresence mode="wait">
-        <motion.div key={currentQ} initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30 }} transition={{ duration: 0.3 }}>
-          <Card hover={false} className="!p-8">
-            <p className="text-lg font-semibold text-slate-900 dark:text-white mb-6">{t(question.question)}</p>
-
-            <div className="space-y-3">
+        <motion.div key={currentQ} initial={{ opacity: 0, x: 16 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -16 }} transition={{ duration: 0.2 }}>
+          <div className="rounded-xl p-6" style={{ background: 'var(--color-surface)', border: '1px solid var(--color-border)' }}>
+            <p className="text-[16px] font-semibold mb-5" style={{ color: 'var(--color-text-primary)' }}>{t(question.question)}</p>
+            <div className="space-y-2.5">
               {question.options.map((opt, i) => {
                 const isCorrect = answered && i === question.correct;
                 const isWrong = answered && i === selected && i !== question.correct;
-                const isSelected = selected === i;
                 return (
                   <motion.button
                     key={i}
-                    whileHover={!answered ? { scale: 1.01 } : {}}
-                    whileTap={!answered ? { scale: 0.99 } : {}}
+                    whileHover={!answered ? { x: 2 } : {}}
                     onClick={() => handleAnswer(i)}
                     disabled={answered}
-                    className={`w-full flex items-center gap-3 p-4 rounded-xl text-left transition-all cursor-pointer border ${
-                      isCorrect ? 'bg-green-50 dark:bg-green-900/30 border-green-300 dark:border-green-700'
-                      : isWrong ? 'bg-red-50 dark:bg-red-900/30 border-red-300 dark:border-red-700'
-                      : isSelected ? 'bg-indigo-50 dark:bg-indigo-950/40 border-indigo-300 dark:border-indigo-700'
-                      : 'bg-white dark:bg-slate-700 border-slate-200 dark:border-slate-600 hover:border-indigo-200 dark:hover:border-indigo-700'
-                    }`}
+                    className="w-full flex items-center gap-3 p-3.5 rounded-lg text-left cursor-pointer border transition-all text-[14px]"
+                    style={{
+                      background: isCorrect ? '#dcfce7' : isWrong ? '#fef2f2' : selected === i ? 'var(--color-accent-subtle)' : 'var(--color-surface)',
+                      borderColor: isCorrect ? '#86efac' : isWrong ? '#fca5a5' : selected === i ? 'var(--color-accent)' : 'var(--color-border)',
+                      color: isCorrect ? '#166534' : isWrong ? '#991b1b' : 'var(--color-text-primary)',
+                    }}
                   >
-                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 text-sm font-bold ${
-                      isCorrect ? 'bg-green-100 text-green-600' : isWrong ? 'bg-red-100 text-red-600' : 'bg-slate-100 dark:bg-slate-600 text-slate-500 dark:text-slate-300'
-                    }`}>
-                      {isCorrect ? <CheckCircle2 size={16} /> : isWrong ? <XCircle size={16} /> : String.fromCharCode(65 + i)}
-                    </div>
-                    <span className={`text-sm ${isCorrect ? 'text-green-700 dark:text-green-300 font-medium' : isWrong ? 'text-red-700 dark:text-red-300' : 'text-slate-700 dark:text-slate-200'}`}>
-                      {t(opt)}
+                    <span className="w-7 h-7 rounded-md flex items-center justify-center flex-shrink-0 text-[12px] font-bold" style={{
+                      background: isCorrect ? '#bbf7d0' : isWrong ? '#fecaca' : 'var(--color-bg-tertiary)',
+                      color: isCorrect ? '#166534' : isWrong ? '#991b1b' : 'var(--color-text-tertiary)',
+                    }}>
+                      {isCorrect ? <CheckCircle2 size={14} /> : isWrong ? <XCircle size={14} /> : String.fromCharCode(65 + i)}
                     </span>
+                    {t(opt)}
                   </motion.button>
                 );
               })}
             </div>
-
-            {/* Explanation */}
             <AnimatePresence>
               {showExplanation && (
                 <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} className="overflow-hidden mt-4">
-                  <div className="p-4 bg-blue-50 dark:bg-blue-950/20 rounded-xl border border-blue-100 dark:border-blue-900/30">
-                    <p className="text-sm text-blue-700 dark:text-blue-300 flex items-start gap-2">
-                      <Sparkles size={16} className="flex-shrink-0 mt-0.5" />
-                      {t(question.explanation)}
-                    </p>
+                  <div className="p-3.5 rounded-lg flex items-start gap-2" style={{ background: 'var(--color-bg-secondary)', border: '1px solid var(--color-border-subtle)' }}>
+                    <Sparkles size={14} style={{ color: 'var(--color-accent)' }} className="mt-0.5 flex-shrink-0" />
+                    <p className="text-[13px] leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>{t(question.explanation)}</p>
                   </div>
                 </motion.div>
               )}
             </AnimatePresence>
-
-            {/* Next button */}
             {answered && (
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-6 flex justify-end">
-                <Button onClick={handleNext} icon={ArrowRight} iconRight>
-                  {currentQ < total - 1 ? t({ en: 'Next Question', hi: 'अगला प्रश्न' }) : t({ en: 'See Results', hi: 'परिणाम देखें' })}
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-5 flex justify-end">
+                <Button onClick={handleNext} icon={ArrowRight} iconRight size="sm">
+                  {currentQ < total - 1 ? t({ en: 'Next', hi: 'अगला' }) : t({ en: 'See Results', hi: 'परिणाम' })}
                 </Button>
               </motion.div>
             )}
-          </Card>
+          </div>
         </motion.div>
       </AnimatePresence>
     </div>
